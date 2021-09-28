@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { DeleteCardModal } from './components/DeleteCardModal';
+import { AddCardModal } from './components/AddCardModal';
+import { useModal } from './utils/hooks';
 
 function App() {
+  const deleteCardModal = useModal();
+  const addCardModal = useModal();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button
+        onClick={() => deleteCardModal.openModal()}
+        disabled={deleteCardModal.open || addCardModal.open}
+      >
+        DELETE CARD
+      </button>
+      <button
+        onClick={() => addCardModal.openModal()}
+        disabled={deleteCardModal.open || addCardModal.open}
+      >
+        ADD CARD
+      </button>
+      {deleteCardModal.open && <DeleteCardModal {...deleteCardModal} />}
+      {addCardModal.open && <AddCardModal {...addCardModal} />}
     </div>
   );
 }
